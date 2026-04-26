@@ -4,11 +4,14 @@ import json
 
 # Load model
 model_path = os.path.join(os.path.dirname(__file__), "../churn_model.pkl")
-model = pickle.load(open(model_path, "rb"))
+
+with open(model_path, "rb") as f:
+    model = pickle.load(f)
+
 
 def handler(request):
     try:
-        # Dummy input — replace later
+        # Dummy input
         data = [[0, 1, 2, 3, 4]]
 
         prediction = model.predict(data)
