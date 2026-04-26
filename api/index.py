@@ -1,7 +1,7 @@
-import json
+from flask import Flask, jsonify
 
-def handler(request):
-    return {
-        "statusCode": 200,
-        "body": json.dumps({"message": "API working"})
-    }
+app = Flask(__name__)
+
+@app.route('/api')
+def home():
+    return jsonify({"message": "API working"})
