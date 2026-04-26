@@ -8,7 +8,7 @@ model = pickle.load(open(model_path, "rb"))
 
 def handler(request):
     try:
-        # Example dummy input
+        # Dummy input — replace later
         data = [[0, 1, 2, 3, 4]]
 
         prediction = model.predict(data)
