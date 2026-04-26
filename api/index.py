@@ -1,6 +1,8 @@
 import os
 import pickle
-import json
+from flask import Flask, jsonify
+
+app = Flask(__name__)
 
 # Load model
 model_path = os.path.join(os.path.dirname(__file__), "../churn_model.pkl")
@@ -9,24 +11,19 @@ with open(model_path, "rb") as f:
     model = pickle.load(f)
 
 
-def handler(request):
+@app.route("/api")
+def predict():
     try:
         # Dummy input
         data = [[0, 1, 2, 3, 4]]
 
         prediction = model.predict(data)
 
-        return {
-            "statusCode": 200,
-            "body": json.dumps({
-                "prediction": prediction.tolist()
-            })
-        }
+        return jsonify({
+            "prediction": prediction.tolist()
+        })
 
     except Exception as e:
-        return {
-            "statusCode": 500,
-            "body": json.dumps({
-                "error": str(e)
-            })
-        }
+        return jsonify({
+            "error": str(e)
+        }), 500
